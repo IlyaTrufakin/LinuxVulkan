@@ -1,178 +1,164 @@
-#include <opencv2/opencv.hpp>
-#include <X11/Xlib.h>
+#include <gst/gst.h>
+#include <glib.h>
 #include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <opencv2/freetype.hpp>
-#include <opencv2/imgproc.hpp>
 
-// Функция для инициализации камеры
-std::unique_ptr<cv::VideoCapture> initializeCamera(int sensor_id, int width, int height, int framerate)
+// Функция обратного вызова для обработки сообщений из шины GStreamer
+static gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data)
 {
-    std::string pipeline = "nvarguscamerasrc sensor-id=" + std::to_string(sensor_id) +
-                           " ! video/x-raw(memory:NVMM),width=" + std::to_string(width) +
-                           ",height=" + std::to_string(height) + ",framerate=" + std::to_string(framerate) + "/1" +
-                           " ! nvvidconv ! video/x-raw,format=BGRx ! videoconvert ! video/x-raw,format=BGR ! appsink";
+    GMainLoop *loop = (GMainLoop *)data;
 
-    // Попытка открыть видеопоток
-    auto cap = std::make_unique<cv::VideoCapture>(pipeline, cv::CAP_GSTREAMER);
-    if (!cap->isOpened())
+    switch (GST_MESSAGE_TYPE(msg))
     {
-        throw std::runtime_error("Ошибка: не удалось открыть видеопоток с камеры " + std::to_string(sensor_id));
+    case GST_MESSAGE_EOS:
+        g_print("Конец потока\n");
+        g_main_loop_quit(loop);
+        break;
+
+    case GST_MESSAGE_ERROR:
+    {
+        gchar *debug;
+        GError *error;
+
+        gst_message_parse_error(msg, &error, &debug);
+        g_free(debug);
+
+        g_printerr("Ошибка: %s\n", error->message);
+        g_error_free(error);
+
+        g_main_loop_quit(loop);
+        break;
     }
-    return cap;
+    default:
+        break;
+    }
+
+    return TRUE;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    // Вычисляем ширину каждого окна
-    Display *disp = XOpenDisplay(NULL);
-    Screen *scrn = DefaultScreenOfDisplay(disp);
-    int screen_width = scrn->width;
-    int screen_height = scrn->height;
-    int window_width = screen_width / 3;
-    int window_height = screen_height;
+    GstElement *pipeline, *source0, *source1, *nvvidconv0, *nvvidconv1, *queue0, *queue1, *compositor, *sink;
+    GstCaps *caps;
+    GstPad *sinkpad0, *sinkpad1;
+    GstBus *bus;
+    GMainLoop *loop;
 
-    // Параметры текста для вывода на  экран
-    int fontFace = cv::FONT_HERSHEY_SIMPLEX;
-    double fontScale = 1.0; // Масштаб шрифта
-    auto fontHeight = 20;
-    auto line_type = cv::LINE_AA;
-    auto bottomLeftOrigin = false;
-    int thickness = 2;               // Толщина линий шрифта
-    cv::Scalar color(255, 255, 255); // Цвет текста (белый)
-    int baseline = 0;
-    cv::Ptr<cv::freetype::FreeType2> ft2;
-    ft2 = cv::freetype::createFreeType2();
-    ft2->loadFontData("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 0);
-    // Проверка успешности загрузки шрифта
-    if (ft2.empty())
+    /* Инициализация GStreamer */
+    gst_init(&argc, &argv);
+
+    /* Создание основного цикла */
+    loop = g_main_loop_new(NULL, FALSE);
+
+    /* Создание элементов пайплайна */
+    pipeline = gst_pipeline_new("camera-pipeline");
+
+    source0 = gst_element_factory_make("nvarguscamerasrc", "source0");
+    source1 = gst_element_factory_make("nvarguscamerasrc", "source1");
+
+    nvvidconv0 = gst_element_factory_make("nvvidconv", "nvvidconv0");
+    nvvidconv1 = gst_element_factory_make("nvvidconv", "nvvidconv1");
+
+    queue0 = gst_element_factory_make("queue", "queue0");
+    queue1 = gst_element_factory_make("queue", "queue1");
+
+    compositor = gst_element_factory_make("nvcompositor", "compositor");
+
+    sink = gst_element_factory_make("nvoverlaysink", "sink");
+
+    if (!pipeline || !source0 || !source1 || !nvvidconv0 || !nvvidconv1 || !queue0 || !queue1 || !compositor || !sink)
     {
-        std::cerr << "Ошибка: не удалось загрузить шрифт!" << std::endl
-                  << std::flush;
+        g_printerr("Не удалось создать элементы\n");
         return -1;
     }
-    else
+
+    /* Установка свойств для источников камеры */
+    g_object_set(G_OBJECT(source0), "sensor-id", 0, NULL);
+    g_object_set(G_OBJECT(source1), "sensor-id", 1, NULL);
+
+    /* Установка разрешения и частоты кадров */
+    caps = gst_caps_from_string("video/x-raw(memory:NVMM), width=1920, height=1080, format=NV12, framerate=60/1");
+
+    /* Добавление элементов в пайплайн */
+    gst_bin_add_many(GST_BIN(pipeline), source0, nvvidconv0, queue0, source1, nvvidconv1, queue1, compositor, sink, NULL);
+
+    /* Связывание источника 0 */
+    if (!gst_element_link_filtered(source0, nvvidconv0, caps))
     {
-        std::cerr << "Загрузка шрифта ОК!" << std::endl
-                  << std::flush;
+        g_printerr("Не удалось связать source0 с nvvidconv0\n");
+        return -1;
+    }
+    if (!gst_element_link(nvvidconv0, queue0))
+    {
+        g_printerr("Не удалось связать nvvidconv0 с queue0\n");
+        return -1;
     }
 
-    // камера 0 переменные
-    int width_Frame0;    // Ширина кадра
-    int height_Frame0;   // Высота кадра
-    int channels_Frame0; // количество каналов
-
-    // камера 1 переменные
-    int width_Frame1;    // Ширина кадра
-    int height_Frame1;   // Высота кадра
-    int channels_Frame1; // количество каналов
-
-    // Создание и настройка окон
-    cv::namedWindow("Camera0", cv::WINDOW_NORMAL);
-    cv::namedWindow("Camera1", cv::WINDOW_NORMAL);
-    cv::namedWindow("Параметры", cv::WINDOW_NORMAL);
-
-    // Размещение окон
-    cv::resizeWindow("Camera0", window_width, window_height);
-    cv::resizeWindow("Camera1", window_width, window_height);
-    cv::resizeWindow("Параметры", window_width, window_height);
-
-    // Перемещение окон
-    cv::moveWindow("Camera0", 0, 0);                  // Окно 0 на левую часть экрана
-    cv::moveWindow("Camera1", window_width, 0);       // Окно 1 в центр
-    cv::moveWindow("Параметры", window_width * 2, 0); // Окно 2 на правую часть экрана
-
-    // Добавление задержки, чтобы убедиться, что окна созданы с правильными параметрами
-    cv::waitKey(500);
-
-    std::cout << "Разрешение экрана: " << screen_width << "x" << screen_height << std::endl
-              << std::flush;
-
-    try
+    /* Связывание источника 1 */
+    if (!gst_element_link_filtered(source1, nvvidconv1, caps))
     {
-        // Инициализация камер с использованием unique_ptr для автоматического освобождения ресурсов
-        auto cap0 = initializeCamera(0, 1920, 1080, 60);
-        auto cap1 = initializeCamera(1, 1920, 1080, 60);
-
-        cv::Mat frame0, frame1;
-
-        while (true)
-        {
-            // Захват кадров с камер
-            *cap0 >> frame0;
-            *cap1 >> frame1;
-
-            // Проверка на пустые кадры
-            if (frame0.empty())
-            {
-                throw std::runtime_error("Ошибка: Пустой кадр камеры №0!");
-            }
-
-            // Проверка на пустые кадры
-            if (frame1.empty())
-            {
-                throw std::runtime_error("Ошибка: Пустой кадр камеры №1!");
-            }
-
-            // определяем размеры захваченных кадров камеры 0
-            width_Frame0 = frame0.cols;  // Ширина кадра
-            height_Frame0 = frame0.rows; // Высота кадра
-            channels_Frame0 = frame0.channels();
-
-            // определяем размеры захваченных кадров камеры 1
-            width_Frame1 = frame1.cols;  // Ширина кадра
-            height_Frame1 = frame1.rows; // Высота кадра
-            channels_Frame1 = frame1.channels();
-
-            // Создаем текст с информацией о размере кадра для камеры 0
-            std::string text0 = "Размер: " + std::to_string(width_Frame0) + "x" + std::to_string(height_Frame0) +
-                                ", Каналы: " + std::to_string(channels_Frame0);
-
-            // Создаем текст с информацией о размере кадра для камеры 1
-            std::string text1 = "Размер: " + std::to_string(width_Frame1) + "x" + std::to_string(height_Frame1) +
-                                ", Каналы: " + std::to_string(channels_Frame1);
-
-            // Определяем размеры текста для правильного позиционирования (для камеры 0)
-            cv::Size textSize0 = cv::getTextSize(text0, fontFace, fontScale, thickness, &baseline);
-            cv::Point textOrg0(10, textSize0.height + 10); // Позиция текста на изображении
-
-            // Аналогично для камеры 1
-            cv::Size textSize1 = cv::getTextSize(text1, fontFace, fontScale, thickness, &baseline);
-            cv::Point textOrg1(10, textSize1.height + 10);
-
-            // Накладываем текст на кадр камеры 0
-            ft2->putText(frame0, text0, textOrg0, fontHeight, color, thickness, line_type, bottomLeftOrigin);
-
-            // Накладываем текст на кадр камеры 1
-            ft2->putText(frame1, text1, textOrg1, fontHeight, color, thickness, line_type, bottomLeftOrigin);
-
-            // Отображение кадров
-            cv::imshow("Camera0", frame0);
-            cv::imshow("Camera1", frame1);
-
-            // Выход при нажатии любой клавиши
-            if (cv::waitKey(30) >= 0)
-                break;
-        }
-
-        // Автоматическое освобождение ресурсов при выходе из try-блока
+        g_printerr("Не удалось связать source1 с nvvidconv1\n");
+        return -1;
     }
-    catch (const std::exception &e)
+    if (!gst_element_link(nvvidconv1, queue1))
     {
-        std::cerr << e.what() << std::endl;
-        // // Освобождение ресурсов
-        // if (cap0.isOpened())
-        // {
-        //     cap0.release();
-        // }
-        // if (cap1.isOpened())
-        // {
-        //     cap1.release();
-        // }
-        // Освобождение ресурсов и завершение программы
+        g_printerr("Не удалось связать nvvidconv1 с queue1\n");
+        return -1;
     }
 
-    cv::destroyAllWindows(); // Закрытие всех окон
+    /* Связывание очередей с композитором */
+    if (!gst_element_link(queue0, compositor))
+    {
+        g_printerr("Не удалось связать queue0 с композитором\n");
+        return -1;
+    }
+    if (!gst_element_link(queue1, compositor))
+    {
+        g_printerr("Не удалось связать queue1 с композитором\n");
+        return -1;
+    }
+
+    /* Связывание композитора с выходом */
+    if (!gst_element_link(compositor, sink))
+    {
+        g_printerr("Не удалось связать композитор с выводом\n");
+        return -1;
+    }
+
+    /* Настройка входных площадок композитора для позиционирования видеопотоков */
+    sinkpad0 = gst_element_get_request_pad(compositor, "sink_%u");
+    sinkpad1 = gst_element_get_request_pad(compositor, "sink_%u");
+
+    if (!sinkpad0 || !sinkpad1)
+    {
+        g_printerr("Не удалось получить входные площадки композитора\n");
+        return -1;
+    }
+
+    /* Конфигурация первого видеопотока (Камера 0) */
+    g_object_set(G_OBJECT(sinkpad0), "xpos", 0, "ypos", 0, "width", 960, "height", 540, NULL);
+
+    /* Конфигурация второго видеопотока (Камера 1) */
+    g_object_set(G_OBJECT(sinkpad1), "xpos", 960, "ypos", 0, "width", 960, "height", 540, NULL);
+
+    gst_object_unref(sinkpad0);
+    gst_object_unref(sinkpad1);
+
+    /* Добавление наблюдателя за шиной */
+    bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
+    gst_bus_add_watch(bus, bus_call, loop);
+    gst_object_unref(bus);
+
+    /* Запуск воспроизведения */
+    gst_element_set_state(pipeline, GST_STATE_PLAYING);
+
+    /* Запуск цикла */
+    g_main_loop_run(loop);
+
+    /* Очистка ресурсов */
+    gst_element_set_state(pipeline, GST_STATE_NULL);
+    gst_object_unref(pipeline);
+    gst_caps_unref(caps);
+    g_main_loop_unref(loop);
+
     return 0;
 }

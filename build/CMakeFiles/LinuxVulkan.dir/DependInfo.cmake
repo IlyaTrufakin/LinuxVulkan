@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jetson/LinuxVulkan/LinuxVulkan/main.cpp" "/home/jetson/LinuxVulkan/LinuxVulkan/build/CMakeFiles/LinuxOpenCV.dir/main.cpp.o"
+  "/home/jetson/LinuxVulkan/LinuxVulkan/main.cpp" "/home/jetson/LinuxVulkan/LinuxVulkan/build/CMakeFiles/LinuxVulkan.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -26,6 +26,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/gdk-pixbuf-2.0"
   "/usr/include/glib-2.0"
   "/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+  "/usr/include/gstreamer-1.0"
+  "/usr/include/orc-0.4"
   "/usr/include/opencv4"
   )
 
