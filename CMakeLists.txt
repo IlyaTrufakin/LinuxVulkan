@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(LinuxVulkan)
 
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Установка стандарта C++
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -57,5 +60,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     ${GSTREAMER_LIBRARIES}
     ${OpenCV_LIBS} 
     ${X11_LIBRARIES}
-    ${Vulkan_LIBRARIES}  # Линковка с Vulkan
+    ${Vulkan_LIBRARIES} 
 )
+
+
