@@ -1,0 +1,3 @@
+/home/jetson/LinuxOpenCV/build/CMakeFiles/rebuild_cache.dir
+/home/jetson/LinuxOpenCV/build/CMakeFiles/LinuxOpenCV.dir
+/home/jetson/LinuxOpenCV/build/CMakeFiles/edit_cache.dir

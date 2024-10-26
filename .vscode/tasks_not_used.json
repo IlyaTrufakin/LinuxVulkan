@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Запуск myfile1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/myfile2",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Debug",
+                "--",
+                "-j6",
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-I/usr/include/opencv4",
+                "-L/usr/lib/aarch64-linux-gnu",
+                "-lopencv_core", 
+                "-lopencv_imgproc", 
+                "-lopencv_highgui",
+                "-lopencv_videoio",
+                "-lopencv_imgcodecs",
+                "-lopencv_dnn",
+                "-lopencv_features2d",
+                "-lopencv_flann",
+                "-lopencv_photo",
+                "-lopencv_objdetect",
+                "-lopencv_video",
+                "-lopencv_stitching",
+                "-lopencv_gapi",
+                "-lopencv_calib3d",
+                "-lstdc++"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
