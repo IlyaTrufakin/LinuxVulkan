@@ -291,13 +291,28 @@
 			"isCMake" : true,
 			"isExternal" : true,
 			"path" : "/usr/local/share/cmake-3.21/Modules/CheckLibraryExists.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/local/share/cmake-3.21/Modules/FindVulkan.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/local/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/local/share/cmake-3.21/Modules/FindPackageMessage.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/jetson/LinuxOpenCV/build",
-		"source" : "/home/jetson/LinuxOpenCV"
+		"build" : "/home/jetson/LinuxVulkan/build",
+		"source" : "/home/jetson/LinuxVulkan"
 	},
 	"version" : 
 	{

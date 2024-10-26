@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jetson/LinuxOpenCV/build"
+			"value" : "/home/jetson/LinuxVulkan/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -691,7 +691,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jetson/LinuxOpenCV"
+			"value" : "/home/jetson/LinuxVulkan"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -703,7 +703,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/home/jetson/LinuxOpenCV/install"
+			"value" : "/home/jetson/LinuxVulkan/install"
 		},
 		{
 			"name" : "CMAKE_INSTALL_SO_NO_EXE",
@@ -947,7 +947,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "LinuxOpenCV"
+			"value" : "LinuxVulkan"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -2082,6 +2082,18 @@
 			"value" : "[TRUE][v()]"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Vulkan",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding Vulkan"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[/usr/lib/aarch64-linux-gnu/libvulkan.so][/usr/include][v()]"
+		},
+		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_X11",
 			"properties" : 
 			[
@@ -2188,6 +2200,498 @@
 			],
 			"type" : "FILEPATH",
 			"value" : "/usr/lib/aarch64-linux-gnu/libfontconfig.so"
+		},
+		{
+			"name" : "GSTREAMER_CFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-pthread;-I/usr/include/gstreamer-1.0;-I/usr/include/orc-0.4;-I/usr/include/gstreamer-1.0;-I/usr/include/glib-2.0;-I/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+		},
+		{
+			"name" : "GSTREAMER_CFLAGS_I",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_CFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-pthread"
+		},
+		{
+			"name" : "GSTREAMER_FOUND",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1"
+		},
+		{
+			"name" : "GSTREAMER_INCLUDEDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_INCLUDE_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/gstreamer-1.0;/usr/include/orc-0.4;/usr/include/gstreamer-1.0;/usr/include/glib-2.0;/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+		},
+		{
+			"name" : "GSTREAMER_LDFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-lgstvideo-1.0;-lgstbase-1.0;-lgstreamer-1.0;-lgobject-2.0;-lglib-2.0"
+		},
+		{
+			"name" : "GSTREAMER_LDFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "gstvideo-1.0;gstbase-1.0;gstreamer-1.0;gobject-2.0;glib-2.0"
+		},
+		{
+			"name" : "GSTREAMER_LIBRARY_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBS_L",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_LIBS_PATHS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_MODULE_NAME",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_CFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-pthread;-I/usr/include/gstreamer-1.0;-I/usr/include/orc-0.4;-I/usr/include/gstreamer-1.0;-I/usr/include/glib-2.0;-I/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_CFLAGS_I",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_CFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-pthread"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_INCLUDE_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/gstreamer-1.0;/usr/include/orc-0.4;/usr/include/gstreamer-1.0;/usr/include/glib-2.0;/usr/lib/aarch64-linux-gnu/glib-2.0/include"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LDFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-lgstvideo-1.0;-lorc-0.4;-lm;-lpthread;-lgstbase-1.0;-lgstreamer-1.0;-lgmodule-2.0;-pthread;-ldl;-lgobject-2.0;-lffi;-lglib-2.0;-pthread;-lpcre;-pthread"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LDFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-pthread"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "gstvideo-1.0;orc-0.4;m;pthread;gstbase-1.0;gstreamer-1.0;gmodule-2.0;dl;gobject-2.0;ffi;glib-2.0;pcre"
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBRARY_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBS_L",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_STATIC_LIBS_PATHS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-1.0_INCLUDEDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/gstreamer-1.0"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-1.0_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/aarch64-linux-gnu"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-1.0_MODULE_NAME",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "gstreamer-1.0"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-1.0_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-1.0_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1.14.5"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-video-1.0_INCLUDEDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/gstreamer-1.0"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-video-1.0_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/aarch64-linux-gnu"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-video-1.0_MODULE_NAME",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "gstreamer-video-1.0"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-video-1.0_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr"
+		},
+		{
+			"name" : "GSTREAMER_gstreamer-video-1.0_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1.14.5"
 		},
 		{
 			"name" : "GTK3_CFLAGS",
@@ -2610,7 +3114,7 @@
 			"value" : ""
 		},
 		{
-			"name" : "LinuxOpenCV_BINARY_DIR",
+			"name" : "LinuxVulkan_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -2619,10 +3123,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jetson/LinuxOpenCV/build"
+			"value" : "/home/jetson/LinuxVulkan/build"
 		},
 		{
-			"name" : "LinuxOpenCV_IS_TOP_LEVEL",
+			"name" : "LinuxVulkan_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -2634,7 +3138,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "LinuxOpenCV_SOURCE_DIR",
+			"name" : "LinuxVulkan_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -2643,7 +3147,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jetson/LinuxOpenCV"
+			"value" : "/home/jetson/LinuxVulkan"
 		},
 		{
 			"name" : "OpenCV_DIR",
@@ -3092,6 +3596,70 @@
 			],
 			"type" : "INTERNAL",
 			"value" : ""
+		},
+		{
+			"name" : "Vulkan_GLSLANG_VALIDATOR_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a program."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "Vulkan_GLSLANG_VALIDATOR_EXECUTABLE-NOTFOUND"
+		},
+		{
+			"name" : "Vulkan_GLSLC_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a program."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "Vulkan_GLSLC_EXECUTABLE-NOTFOUND"
+		},
+		{
+			"name" : "Vulkan_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/include"
+		},
+		{
+			"name" : "Vulkan_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libvulkan.so"
 		},
 		{
 			"name" : "X11_ICE_INCLUDE_PATH",
@@ -4330,6 +4898,18 @@
 			"value" : "X11_xkbfile_LIB-NOTFOUND"
 		},
 		{
+			"name" : "__pkg_config_arguments_GSTREAMER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "REQUIRED;gstreamer-1.0;gstreamer-video-1.0"
+		},
+		{
 			"name" : "__pkg_config_arguments_GTK3",
 			"properties" : 
 			[
@@ -4354,6 +4934,18 @@
 			"value" : "QUIET;fontconfig"
 		},
 		{
+			"name" : "__pkg_config_checked_GSTREAMER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1"
+		},
+		{
 			"name" : "__pkg_config_checked_GTK3",
 			"properties" : 
 			[
@@ -4376,6 +4968,86 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "1"
+		},
+		{
+			"name" : "pkgcfg_lib_GSTREAMER_glib-2.0",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libglib-2.0.so"
+		},
+		{
+			"name" : "pkgcfg_lib_GSTREAMER_gobject-2.0",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libgobject-2.0.so"
+		},
+		{
+			"name" : "pkgcfg_lib_GSTREAMER_gstbase-1.0",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libgstbase-1.0.so"
+		},
+		{
+			"name" : "pkgcfg_lib_GSTREAMER_gstreamer-1.0",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libgstreamer-1.0.so"
+		},
+		{
+			"name" : "pkgcfg_lib_GSTREAMER_gstvideo-1.0",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libgstvideo-1.0.so"
 		},
 		{
 			"name" : "pkgcfg_lib_GTK3_atk-1.0",
