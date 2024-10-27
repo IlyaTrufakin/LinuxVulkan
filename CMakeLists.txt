@@ -32,7 +32,7 @@ message(STATUS "Vulkan_LIBRARIES: ${Vulkan_LIBRARIES}")
 
 # Добавление исполняемого файла
 add_executable(${PROJECT_NAME} main.cpp)
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "myfile4")
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "myfile5")
 
 
 # Указание директории для исполняемого файла

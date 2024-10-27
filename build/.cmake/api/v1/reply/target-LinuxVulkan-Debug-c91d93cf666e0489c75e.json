@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "bin/myfile4"
+			"path" : "bin/myfile5"
 		}
 	],
 	"backtrace" : 1,
@@ -691,7 +691,7 @@
 		"language" : "CXX"
 	},
 	"name" : "LinuxVulkan",
-	"nameOnDisk" : "myfile4",
+	"nameOnDisk" : "myfile5",
 	"paths" : 
 	{
 		"build" : ".",
